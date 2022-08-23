@@ -1,1 +1,1 @@
-web: gunicorn see9ja.wsgi
+web: gunicorn cumandra.wsgi
