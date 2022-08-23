@@ -90,20 +90,14 @@ WSGI_APPLICATION = 'cumandra.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dd5hi2apu74cl4',
+        'USER': 'etrstclxoeruhu',
+        'PASSWORD': 'fc4c22e60b32ffde15811f3ee720ebd04d13e270ce432f523cd418bec939bb3d',
+        'HOST': 'ec2-34-199-68-114.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'ddfefllrtmperg',
-#         'USER': 'wnounnswbiogts',
-#         'PASSWORD': 'a40358d5e40bce59aa25d07241fae7f2272f0ce695aedcef95e690e8aac3b27d',
-#         'HOST': 'ec2-44-206-137-96.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
 
 
 # Password validation
