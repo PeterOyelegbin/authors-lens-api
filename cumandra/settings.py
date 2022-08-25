@@ -91,11 +91,11 @@ WSGI_APPLICATION = 'cumandra.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dd5hi2apu74cl4',
-        'USER': 'etrstclxoeruhu',
-        'PASSWORD': 'fc4c22e60b32ffde15811f3ee720ebd04d13e270ce432f523cd418bec939bb3d',
-        'HOST': 'ec2-34-199-68-114.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'KV1M12SdFeS5dfFBe6Z6',
+        'HOST': 'containers-us-west-60.railway.app',
+        'PORT': '7283',
     }
 }
 
