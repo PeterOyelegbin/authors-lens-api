@@ -33,10 +33,13 @@ def signUp(request):
     data = request.data
     serializer = UserSerializer(data=data)
     if serializer.is_valid():
-        user = User.objects.create(first_name=serializer.data['first_name'], last_name=serializer.data['last_name'], username=serializer.data['username'], email=serializer.data['email'])
-        user.set_password(serializer.data['password'])
-        user.save()
-        return Response('Signed Up successfull')
+        if data['username'] != authenticate(request, username=data['username']):
+            user = User.objects.create(first_name=serializer.data['first_name'], last_name=serializer.data['last_name'], username=serializer.data['username'], email=serializer.data['email'])
+            user.set_password(serializer.data['password'])
+            user.save()
+            return Response('Signed Up successfull')
+        else:
+            return Response('User already exist!')
     else:
         return Response(serializer.errors)
 
