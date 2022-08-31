@@ -39,7 +39,7 @@ def signUp(request):
             user.save()
             return Response('Signed Up successfull')
         else:
-            return Response('User already exist!')
+            return Response(serializer.errors)
     else:
         return Response(serializer.errors)
 
@@ -57,7 +57,7 @@ def logIn(request):
                 login(request, user)
                 return Response('Logged in successfully')
         except:
-            return Response('User does not exist!')
+            return Response(serializer.errors)
 
 @csrf_exempt
 @api_view(['GET'])
