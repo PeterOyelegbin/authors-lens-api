@@ -1,8 +1,7 @@
-from django.shortcuts import render
 from rest_framework.decorators import api_view
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework import status
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .models import Post
@@ -26,8 +25,7 @@ def apiOverview(request):
     return Response(api_urls)
 
 
-
-# Authentication logic
+# User registration
 @csrf_exempt
 @api_view(['POST'])
 def signUp(request):
@@ -44,6 +42,7 @@ def signUp(request):
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# Log in user
 @csrf_exempt
 @api_view(['POST'])
 def logIn(request):
@@ -60,12 +59,12 @@ def logIn(request):
         except:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
+# Log out user
 @csrf_exempt
 @api_view(['GET'])
 def logOut(request):
     logout(request)
     return Response('Logged out successfully')
-
 
 
 #  CRUD - Read all function
@@ -85,23 +84,30 @@ def postView(request, pk):
     return Response(serializer.data)
 
 #  CRUD - Create function
-@csrf_exempt
-@api_view(['POST'])
-def postCreate(request):
-    serializer = PostSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+class PostCreate(generics.GenericAPIView):
+    serializer_class = PostSerializer
+    @csrf_exempt
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response('Post created successfully', status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 #  CRUD - Update function
-@csrf_exempt
-@api_view(['POST'])
-def postEdit(request, pk):
-    post = Post.objects.get(id=pk)
-    serializer = PostSerializer(instance=post, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+class PostEdit(generics.RetrieveUpdateAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+    @csrf_exempt
+    def put(self, request, pk):
+        post = Post.objects.get(id=pk)
+        serializer = self.serializer_class(instance=post, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response('Post updated successfully', status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 #  CRUD - Delete function
 @csrf_exempt
