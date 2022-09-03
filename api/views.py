@@ -87,9 +87,9 @@ def postView(request, pk):
 #  CRUD - Create function
 class PostCreate(generics.GenericAPIView):
     serializer_class = PostSerializer
-    parser_classes = (MultiPartParser, FormParser)
-    @csrf_exempt
+    # parser_classes = [FormParser]
     def post(self, request):
+        print(request.data)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -101,8 +101,7 @@ class PostCreate(generics.GenericAPIView):
 class PostEdit(generics.RetrieveUpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    parser_classes = (MultiPartParser, FormParser)
-    @csrf_exempt
+    parser_classes = [MultiPartParser, FormParser]
     def put(self, request, pk):
         post = Post.objects.get(id=pk)
         serializer = self.serializer_class(instance=post, data=request.data)
@@ -120,3 +119,19 @@ def postDelete(request, pk):
     post.delete()
     return Response('Item successfully deleted!')
 
+'''
+{
+'title': ['Tech DNA'],
+'content': ['Genetics of developers'],
+'author': ['1'],
+'image': [<C:/Users/Hp/Pictures/Wallpapers/112807527-jesus-helping-hand-concept-world-peace-day-on-sunset-background.jpg>]
+'image': [<InMemoryUploadedFile: CSS Certificate.jpg (image/jpeg)>]
+}
+
+{
+"title": "Tech DNA",
+"content": "Genetics of developers",
+"author": 1,
+"image": "<C:/Users/Hp/Pictures/Wallpapers/112807527-jesus-helping-hand-concept-world-peace-day-on-sunset-background.jpg>"
+}
+'''

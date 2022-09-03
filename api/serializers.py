@@ -12,4 +12,4 @@ class PostSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ['author', 'image', 'title', 'content']
