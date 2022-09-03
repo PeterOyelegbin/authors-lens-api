@@ -9,6 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['first_name', 'last_name', 'username', 'email', 'password']
 
 class PostSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
     class Meta:
         model = Post
         fields = '__all__'
