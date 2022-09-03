@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -86,6 +87,7 @@ def postView(request, pk):
 #  CRUD - Create function
 class PostCreate(generics.GenericAPIView):
     serializer_class = PostSerializer
+    parser_classes = (MultiPartParser, FormParser)
     @csrf_exempt
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -97,8 +99,9 @@ class PostCreate(generics.GenericAPIView):
 
 #  CRUD - Update function
 class PostEdit(generics.RetrieveUpdateAPIView):
-    serializer_class = PostSerializer
     queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    parser_classes = (MultiPartParser, FormParser)
     @csrf_exempt
     def put(self, request, pk):
         post = Post.objects.get(id=pk)
