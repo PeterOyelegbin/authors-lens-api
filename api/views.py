@@ -87,7 +87,7 @@ def postView(request, pk):
 #  CRUD - Create function
 class PostCreate(generics.GenericAPIView):
     serializer_class = PostSerializer
-    parser_classes = [FormParser]
+    parser_classes = [MultiPartParser, FormParser]
     def post(self, request):
         print(request.data)
         serializer = self.serializer_class(data=request.data)
@@ -134,4 +134,12 @@ def postDelete(request, pk):
 "author": 1,
 "image": "<C:/Users/Hp/Pictures/Wallpapers/112807527-jesus-helping-hand-concept-world-peace-day-on-sunset-background.jpg>"
 }
+
+<QueryDict: {
+    'csrfmiddlewaretoken': ['kKBViJaSuAQiJY4uOTAdSEWgYPJZKx0KXyTVMsuuabiNWUK7deJFThEplYvFspjH'],
+    'author': ['peter'],
+    'title': ['Tech DNA'],
+    'content': ["gfghjkl;';lkjhgfdsdfjkl"],
+    'image': [<InMemoryUploadedFile: CSS Certificate.jpg (image/jpeg)>]
+    }>
 '''
