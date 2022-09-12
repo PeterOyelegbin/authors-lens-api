@@ -87,7 +87,7 @@ def postView(request, pk):
 #  CRUD - Create function
 class PostCreate(generics.GenericAPIView):
     serializer_class = PostSerializer
-    parser_classes = [MultiPartParser, FormParser]
+    parser_classes = [FormParser]
     def post(self, request):
         print(request.data)
         serializer = self.serializer_class(data=request.data)
