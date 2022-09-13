@@ -11,7 +11,7 @@ class Post(models.Model):
     created_on = models.DateField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
 
-    # Sort post data in decending order
+    # Sort post data in descending order
     class Meta:
         ordering = ['-created_on']
 

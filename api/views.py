@@ -1,4 +1,5 @@
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -85,12 +86,11 @@ def postView(request, pk):
     return Response(serializer.data)
 
 #  CRUD - Create function
-class PostCreate(generics.GenericAPIView):
-    serializer_class = PostSerializer
+class PostCreate(APIView):
     parser_classes = [MultiPartParser, FormParser]
-    def post(self, request):
+    def post(self, request, format=None):
         print(request.data)
-        serializer = self.serializer_class(data=request.data)
+        serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response('Post created successfully', status=status.HTTP_201_CREATED)
