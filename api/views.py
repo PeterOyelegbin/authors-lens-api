@@ -1,8 +1,7 @@
-from rest_framework.decorators import api_view
-from rest_framework.views import APIView
-from rest_framework import generics, status
-from rest_framework.response import Response
+from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.response import Response
+from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -38,7 +37,7 @@ def signUp(request):
             user = User.objects.create(first_name=serializer.data['first_name'], last_name=serializer.data['last_name'], username=serializer.data['username'], email=serializer.data['email'])
             user.set_password(serializer.data['password'])
             user.save()
-            return Response('Signed Up successfull', status=status.HTTP_201_CREATED)
+            return Response('Signed Up successfully', status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
     else:
@@ -59,14 +58,14 @@ def logIn(request):
                 login(request, user)
                 return Response('Logged in successfully', status=status.HTTP_202_ACCEPTED)
         except:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response('User does not exist!', status=status.HTTP_401_UNAUTHORIZED)
 
 # Log out user
 @csrf_exempt
 @api_view(['GET'])
 def logOut(request):
     logout(request)
-    return Response('Logged out successfully')
+    return Response('Logged out successfully', status=status.HTTP_200_OK)
 
 
 #  CRUD - Read all function
@@ -75,7 +74,7 @@ def logOut(request):
 def postList(request):
     post = Post.objects.all()
     serializer = PostSerializer(post, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 #  CRUD - Read one function
 @csrf_exempt
@@ -83,33 +82,58 @@ def postList(request):
 def postView(request, pk):
     post = Post.objects.get(id=pk)
     serializer = PostSerializer(post, many=False)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 #  CRUD - Create function
-class PostCreate(APIView):
-    parser_classes = [MultiPartParser, FormParser]
-    def post(self, request, format=None):
-        print(request.data)
-        serializer = PostSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response('Post created successfully', status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+@csrf_exempt
+@api_view(['POST'])
+@parser_classes([MultiPartParser, FormParser])
+def postCreate(request, format=None):
+    serializer = PostSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response('Post created successfully', status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 #  CRUD - Update function
-class PostEdit(generics.RetrieveUpdateAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    parser_classes = [MultiPartParser, FormParser]
-    def put(self, request, pk):
-        post = Post.objects.get(id=pk)
-        serializer = self.serializer_class(instance=post, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response('Post updated successfully', status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+@csrf_exempt
+@api_view(['PUT'])
+@parser_classes([MultiPartParser, FormParser])
+def postEdit(request, pk):
+    post = Post.objects.get(id=pk)
+    serializer = PostSerializer(instance=post, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response('Post updated successfully', status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+
+# class PostEdit(APIView):
+#     parser_classes = (MultiPartParser, FormParser)
+
+#     def put(self, request, pk):
+#         post = Post.objects.get(id=pk)
+#         serializer = PostSerializer(instance=post, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response('Post updated successfully', status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+# class PostEdit(generics.RetrieveUpdateAPIView):
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializer
+#     parser_classes = (MultiPartParser, FormParser)
+#     def put(self, request, pk):
+#         post = Post.objects.get(id=pk)
+#         serializer = self.serializer_class(instance=post, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response('Post updated successfully', status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+
 
 #  CRUD - Delete function
 @csrf_exempt
@@ -117,29 +141,4 @@ class PostEdit(generics.RetrieveUpdateAPIView):
 def postDelete(request, pk):
     post = Post.objects.get(id=pk)
     post.delete()
-    return Response('Item successfully deleted!')
-
-'''
-{
-'title': ['Tech DNA'],
-'content': ['Genetics of developers'],
-'author': ['1'],
-'image': [<C:/Users/Hp/Pictures/Wallpapers/112807527-jesus-helping-hand-concept-world-peace-day-on-sunset-background.jpg>]
-'image': [<InMemoryUploadedFile: CSS Certificate.jpg (image/jpeg)>]
-}
-
-{
-"title": "Tech DNA",
-"content": "Genetics of developers",
-"author": 1,
-"image": "<C:/Users/Hp/Pictures/Wallpapers/112807527-jesus-helping-hand-concept-world-peace-day-on-sunset-background.jpg>"
-}
-
-<QueryDict: {
-    'csrfmiddlewaretoken': ['kKBViJaSuAQiJY4uOTAdSEWgYPJZKx0KXyTVMsuuabiNWUK7deJFThEplYvFspjH'],
-    'author': ['peter'],
-    'title': ['Tech DNA'],
-    'content': ["gfghjkl;';lkjhgfdsdfjkl"],
-    'image': [<InMemoryUploadedFile: CSS Certificate.jpg (image/jpeg)>]
-    }>
-'''
+    return Response('Post deleted successfully!', status=status.HTTP_202_ACCEPTED)
