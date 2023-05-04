@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 3rd-party libraries
     "rest_framework",
     "corsheaders",
+    "ckeditor",
     "cloudinary",
     "cloudinary_storage",
 

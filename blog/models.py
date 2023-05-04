@@ -1,6 +1,7 @@
 from django.db import models
 from uuid import uuid4
 from accounts.models import UserModel
+from ckeditor.fields import RichTextField
 
 
 # Create your models here.
@@ -9,7 +10,7 @@ class Blog(models.Model):
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     title = models.CharField(max_length=225, unique=True, db_index=True)
     cover_image = models.ImageField(upload_to="cumandra/images/")
-    content = models.TextField()
+    content = RichTextField()
     created_on = models.DateField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
 

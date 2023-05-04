@@ -10,13 +10,12 @@ class UserModel(AbstractUser):
     id = models.UUIDField(default=uuid4, unique=True, primary_key=True, editable=False)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
-    pen_name = models.CharField(max_length=150, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     phone = models.CharField(max_length=32, unique=True)
     otp_token = models.CharField(max_length=6, null=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
     objects = UserModelManager()
 

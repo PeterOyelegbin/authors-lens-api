@@ -5,9 +5,7 @@ from .models import UserModel
 class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
-        fields = ["id", "first_name", "last_name", "pen_name",
-            "email", "phone", "password"]
-
+        fields = ["id", "first_name", "last_name", "email", "phone", "password"]
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -23,10 +21,10 @@ class SignUpSerializer(serializers.ModelSerializer):
 class LogInSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
-        fields = ["id", "pen_name", "email", "password"]
-
+        fields = ["id", "first_name", "last_name", "email", "password"]
         extra_kwargs = {
-            "pen_name": {"read_only": True},
+            "first_name": {"read_only": True},
+            "last_name": {"read_only": True},
             "password": {"write_only": True},
         }
 
@@ -35,5 +33,4 @@ class OTPSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = ["id", "email", "otp_token"]
-
         extra_kwargs = {"otp_token": {"write_only": True}}
