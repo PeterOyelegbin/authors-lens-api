@@ -78,5 +78,9 @@ python manage.py runserver
 * Open your web browser and go to http://127.0.0.1:8000/ to see the Django welcome page.
 
 
+## TODO: Features to add
+Adding likes and comment features to the blog app.
+
+
 ## Acknowledgements
 Acknowledgements and credits to **CodevoWeb** for the insight from Django – Implement (2FA) Two-Factor Authentication at [https://codevoweb.com/django-implement-2fa-two-factor-authentication/], and **Philip Oyelegbin** who contributed by integrating this project to a React app to build a full functional blog app. Thanks to vercel and Atlas database for the free web hosting and database.

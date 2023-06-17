@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import Blog
-from accounts.serializers import LogInSerializer
+from accounts.serializers import SignUpSerializer
 
 
 class BlogSerializer(serializers.ModelSerializer):
-    author = LogInSerializer(read_only=True)
+    author = SignUpSerializer(read_only=True)
 
     class Meta:
         model = Blog

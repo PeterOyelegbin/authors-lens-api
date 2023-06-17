@@ -11,7 +11,6 @@ class UserModel(AbstractUser):
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     email = models.EmailField(max_length=255, unique=True)
-    phone = models.CharField(max_length=32, unique=True)
     otp_token = models.CharField(max_length=6, null=True)
 
     USERNAME_FIELD = "email"

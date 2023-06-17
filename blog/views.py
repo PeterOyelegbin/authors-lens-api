@@ -14,7 +14,7 @@ class BlogView(viewsets.ModelViewSet):
     ordering_fields = ["title", "created_on"]
     search_fields = ["author", "title"]
 
-    # restrict access for create, edit, and delete to users only
+    # restrict access for create, edit, and delete to authenticated users only
     def get_permissions(self):
         permission_classes = []
         if self.request.method != "GET":

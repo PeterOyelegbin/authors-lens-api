@@ -98,6 +98,16 @@ DATABASES = {
     #     "NAME": BASE_DIR / "db.sqlite3",
     # }
 
+    # # Remote or production db
+    # "default": {
+    #     "ENGINE": "django_cockroachdb",
+    #     "NAME": config('DB_NAME'),
+    #     "HOST": config('DB_HOST'),
+    #     "USER": config('DB_USER'),
+    #     "PORT": config('DB_PORT'),
+    #     "PASSWORD": config('DB_PASS')
+    # }
+
     # Remote or production database
     'default': {
         'ENGINE': 'djongo',
@@ -159,12 +169,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Email configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST = config("EMAIL_HOST")
 EMAIL_PORT = 587
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+EMAIL_TIMEOUT = 120  # 120 sec
 
 
 # Cloudinary configuration
