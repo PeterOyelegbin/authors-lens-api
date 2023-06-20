@@ -98,24 +98,14 @@ DATABASES = {
     #     "NAME": BASE_DIR / "db.sqlite3",
     # }
 
-    # # Remote or production db
-    # "default": {
-    #     "ENGINE": "django_cockroachdb",
-    #     "NAME": config('DB_NAME'),
-    #     "HOST": config('DB_HOST'),
-    #     "USER": config('DB_USER'),
-    #     "PORT": config('DB_PORT'),
-    #     "PASSWORD": config('DB_PASS')
-    # }
-
-    # Remote or production database
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': config('DB_NAME'),
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': config('DB_URL')
-        }
+    # Remote or production db
+    "default": {
+        "ENGINE": "django_cockroachdb",
+        "NAME": config('DB_NAME'),
+        "HOST": config('DB_HOST'),
+        "USER": config('DB_USER'),
+        "PORT": config('DB_PORT'),
+        "PASSWORD": config('DB_PASS')
     }
 }
 

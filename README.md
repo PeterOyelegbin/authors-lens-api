@@ -1,4 +1,4 @@
-# Authors Lens
+# AuthorsLens
 A community where words come to life, providing an opportunity for hidden talented storytellers to showcase their skills. The initiative aims to identify and promote aspiring writers who have the potential to captivate an audience with their narratives. The community encourages storytellers to unleash their inner writing skills and express themselves, as we offer exposure to talented writers who may have previously gone unnoticed. The initiative seeks to provide a platform for emerging voices and to nurture the art of storytelling.
 
 
@@ -11,7 +11,7 @@ A community where words come to life, providing an opportunity for hidden talent
 
 
 ## Introduction
-A server side app integrated with database to authenticate user, store and retrieve blog posts - built with python, django rest framework, pyotp, and mongodb.
+A server side app integrated with database to authenticate user, store and retrieve blog posts - built with python, django rest framework, pyotp, and postgresDB.
 
 
 ## Features
@@ -22,7 +22,7 @@ A server side app integrated with database to authenticate user, store and retri
 * Pillow: 9.5.0
 * Cloudinary: 1.32
 * SQLite database for local development
-* MongoDB database for production (djongo: 1.3.6)
+* PostgresDB database for production (django-cockroachdb: 4.1.1)
 * Basic folder structure with common Django apps
 
 
@@ -75,7 +75,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-* Open your web browser and go to http://127.0.0.1:8000/ to see the Django welcome page.
+* Open your web browser and go to [http://127.0.0.1:8000/](localhost) to see the Django API view page.
 
 
 ## TODO: Features to add
@@ -83,4 +83,4 @@ Adding likes and comment features to the blog app.
 
 
 ## Acknowledgements
-Acknowledgements and credits to **CodevoWeb** for the insight from Django – Implement (2FA) Two-Factor Authentication at [https://codevoweb.com/django-implement-2fa-two-factor-authentication/], and **Philip Oyelegbin** who contributed by integrating this project to a React app to build a full functional blog app. Thanks to vercel and Atlas database for the free web hosting and database.
+Acknowledgements and credits to [https://codevoweb.com/django-implement-2fa-two-factor-authentication/](CodevoWeb) for the insight from Django – Implement (2FA) Two-Factor Authentication, and [https://philipoyelegbin.github.io](**PhilipOyelegbin**) who contributed by integrating this project to a React app to build a full functional blog app. Thanks to vercel and Atlas database for the free web hosting and database.
