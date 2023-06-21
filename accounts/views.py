@@ -16,20 +16,20 @@ class SignUpView(viewsets.ModelViewSet):
     serializer_class = SignUpSerializer
     http_method_names = ["post"]
 
-    # @method_decorator(csrf_exempt)
-    # def create(self, request):
-    #     data = request.data
-    #     serializer = self.serializer_class(data=data)
-    #     serializer.is_valid(raise_exception=True)
-    #     # send mail for successful account creation
-    #     send_mail(
-    #         subject="AuthorsLens: User Created",
-    #         message=f"Dear {data['first_name']} {data['last_name']},\n\nCongratulations! Your account has been created successfully on AuthorsLens platform, click the link below to login and unleash your ideas.\n\nhttps://authorslens.netlify.app/\n\nCheers,\nAuthorsLens",
-    #         from_email=settings.EMAIL_HOST_USER,
-    #         recipient_list=[data['email']],
-    #     )
-    #     serializer.save()
-    #     return Response(serializer.data, 200)
+    @method_decorator(csrf_exempt)
+    def create(self, request):
+        data = request.data
+        serializer = self.serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        # send mail for successful account creation
+        send_mail(
+            subject="AuthorsLens: User Created",
+            message=f"Dear {data['first_name']} {data['last_name']},\n\nCongratulations! Your account has been created successfully on AuthorsLens platform, click the link below to login and unleash your ideas.\n\nhttps://authorslens.netlify.app/\n\nCheers,\nAuthorsLens",
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[data['email']],
+        )
+        serializer.save()
+        return Response(serializer.data, 200)
 
 
 class LogInView(viewsets.GenericViewSet):
