@@ -66,7 +66,7 @@ class LogInView(viewsets.GenericViewSet):
         # save token
         user.otp_token = otp
         user.save()
-        return Response({"Message": "OTP sent to your email"}, 200)
+        return Response({"Message": "OTP sent to your email " + otp}, 200)
 
 
 class VerifyOTP(viewsets.GenericViewSet):
@@ -88,7 +88,22 @@ class VerifyOTP(viewsets.GenericViewSet):
         login(request, user)
         user.otp_token = None
         user.save()
-        return Response({"Message": "OTP verified successfully"}, 202)
+        return Response({"Message": "OTP verified successfully"}, 200)
+
+
+class CurrentUser(viewsets.ViewSet):
+    def list(self, request):
+        user = request.user
+        if str(user) != 'AnonymousUser':
+            # Convert user information to JSON
+            user_data = {
+                'id': user.id,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'email': user.email
+            }
+            return Response(user_data, 200)
+        return Response({"Message": "No logged in user found!"}, 404)
 
 
 class ResetPassword(viewsets.GenericViewSet):

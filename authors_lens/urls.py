@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from accounts.views import SignUpView, LogInView, VerifyOTP, ResetPassword, ConfirmResetPassword
+from accounts.views import SignUpView, LogInView, VerifyOTP, CurrentUser, ResetPassword, ConfirmResetPassword
 from blog.views import BlogView
 
 
@@ -24,6 +24,7 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r"accounts/signup", SignUpView, basename="signup")
 router.register(r"accounts/login", LogInView, basename="login")
 router.register(r"accounts/auth-token", VerifyOTP, basename="verify-otp")
+router.register(r"accounts/current-user", CurrentUser, basename="user")
 router.register(r"accounts/password-reset", ResetPassword, basename="password_reset")
 router.register(r"accounts/password-reset/confirm", ConfirmResetPassword, basename="password_reset_confirm")
 router.register(r"blogs", BlogView, basename="blogs")
