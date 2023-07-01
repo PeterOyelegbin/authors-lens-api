@@ -14,13 +14,13 @@ from django.conf import settings
 class AuthView(viewsets.ViewSet):
     def list(self, request):
         routes = {
-            "signup": "http://127.0.0.1:8000/users",
-            "user": "http://127.0.0.1:8000/users/me",
-            "login": "http://127.0.0.1:8000/login",
-            "token": "http://127.0.0.1:8000/token/verify",
-            "logout": "http://127.0.0.1:8000/token/logout",
-            "reset-password": "http://127.0.0.1:8000/users/reset_password",
-            "confirm-password-reset": "http://127.0.0.1:8000/users/reset_password_confirm",
+            "signup": "https://authorslens-api.vercel.app/users",
+            "user": "https://authorslens-api.vercel.app/users/me",
+            "login": "https://authorslens-api.vercel.app/login",
+            "token": "https://authorslens-api.vercel.app/token/verify",
+            "logout": "https://authorslens-api.vercel.app/token/logout",
+            "reset-password": "https://authorslens-api.vercel.app/users/reset_password",
+            "confirm-password-reset": "https://authorslens-api.vercel.app/users/reset_password_confirm",
         }
         return Response(routes, 200)
 
