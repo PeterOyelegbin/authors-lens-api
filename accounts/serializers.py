@@ -24,14 +24,13 @@ class LogInSerializer(serializers.Serializer):
 
     class Meta:
         fields = ("email", "password")
+    
 
-
-class OTPSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    otp_token = serializers.CharField(min_length=6, write_only=True)
+class TokenSerializer(serializers.Serializer):
+    token = serializers.CharField(write_only=True)
 
     class Meta:
-        fields = ("email", "otp_token")
+        fields = ("token")
 
 
 class PasswordReset(serializers.Serializer):

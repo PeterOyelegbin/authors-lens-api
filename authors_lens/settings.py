@@ -44,6 +44,8 @@ INSTALLED_APPS = [
 
     # 3rd-party libraries
     "rest_framework",
+    "rest_framework.authtoken",
+    "djoser",
     "corsheaders",
     "ckeditor",
     "cloudinary",
@@ -181,6 +183,9 @@ DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # DRF configuration
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
     "DEFAULT_THROTTLE_RATES": {
         "anon": "100/minute",
         "user": "200/minute",
@@ -189,4 +194,18 @@ REST_FRAMEWORK = {
         "rest_framework.filters.OrderingFilter",
         "rest_framework.filters.SearchFilter",
     ],
+}
+
+
+# Djoser configuration
+DJOSER = {
+    "LOGIN_FIELD": "email",
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "SEND_CONFIRMATION_EMAIL": True,
+    "PASSWORD_RESET_CONFIRM_URL": "password-reset/{uid}/{token}",
+    "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    "LOGOUT_ON_PASSWORD_CHANGE": True,
+    "TOKEN_EXPIRATION": 60,  # Set the token expiration time to 1 hour (3600 seconds)
+    "SERIALIZERS": {},
 }
