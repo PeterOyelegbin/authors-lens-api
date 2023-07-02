@@ -27,7 +27,9 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool)
 
-CORS_ALLOWED_ORIGINS = ["localhost", "127.0.0.1", ".vercel.app", ".netlify.app"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".vercel.app", ".netlify.app"]
+
+CORS_ALLOWED_ORIGINS = ["http://localhost", "http://127.0.0.1", "https://*.vercel.app", "https://*.netlify.app"]
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1", "https://*.vercel.app", "https://*.netlify.app"]
 
