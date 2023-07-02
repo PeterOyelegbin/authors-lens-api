@@ -29,11 +29,9 @@ DEBUG = config("DEBUG", cast=bool)
 
 ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
 
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173", "https://*.vercel.app", "https://*.netlify.app"]
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:*", "http://127.0.0.1:*", "https://*.vercel.app", "https://*.netlify.app"]
-
-CSRF_TRUSTED_ORIGINS = ["http://localhost:*", "http://127.0.0.1:*", "https://*.vercel.app", "https://*.netlify.app"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173", "https://*.vercel.app", "https://*.netlify.app"]
 
 # Application definition
 
