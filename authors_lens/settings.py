@@ -27,10 +27,9 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
+ALLOWED_HOSTS = ["http://localhost", "http://127.0.0.1", "https://*.vercel.app", "https://*.netlify.app"]
 
-CSRF_TRUSTED_ORIGINS = ["http://*.127.0.0.1", "https://*.vercel.app"]
-
+CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1", "https://*.vercel.app", "https://*.netlify.app"]
 
 # Application definition
 
@@ -56,7 +55,6 @@ INSTALLED_APPS = [
     "blog.apps.BlogConfig"
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
