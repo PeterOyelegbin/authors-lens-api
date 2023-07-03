@@ -11,7 +11,7 @@ A community where words come to life, providing an opportunity for hidden talent
 
 
 ## Introduction
-A server side app integrated with database to authenticate user, store and retrieve blog posts - built with python, django rest framework, pyotp, and postgresDB.
+A server side app integrated with database to authenticate user, store and retrieve blog posts - built with python, django rest framework, djoser, and postgresDB.
 
 
 ## Features
@@ -19,6 +19,7 @@ A server side app integrated with database to authenticate user, store and retri
 * Python Decouple: 3.8
 * Django version: 4.1
 * Django RestFramework: 3.14.0
+* Djoser: 2.2.0
 * Pillow: 9.5.0
 * Cloudinary: 1.32
 * SQLite database for local development
@@ -83,4 +84,4 @@ Adding likes and comment features to the blog app.
 
 
 ## Acknowledgements
-Acknowledgements and credits to [https://codevoweb.com/django-implement-2fa-two-factor-authentication/](CodevoWeb) for the insight from Django – Implement (2FA) Two-Factor Authentication, and [https://philipoyelegbin.github.io](**PhilipOyelegbin**) who contributed by integrating this project to a React app to build a full functional blog app. Thanks to vercel and Atlas database for the free web hosting and database.
+Acknowledgements and credits to **[https://codevoweb.com/django-implement-2fa-two-factor-authentication/](CodevoWeb)** for the insight from Django – Implement (2FA) Two-Factor Authentication, and **[https://philipoyelegbin.github.io](PhilipOyelegbin)** who contributed by integrating this project to a React app to build a full functional blog app. Thanks to vercel and cockroachdb for the free web hosting and database.

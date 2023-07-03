@@ -4,10 +4,10 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate, tokens
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from .models import UserModel
-from .serializers import SignUpSerializer, LogInSerializer, TokenSerializer, PasswordReset, ConfirmPasswordReset
 from django.core.mail import send_mail
 from django.conf import settings
+from .models import UserModel
+from .serializers import SignUpSerializer, LogInSerializer, TokenSerializer, PasswordReset, ConfirmPasswordReset
 
 
 # Create your views here.
@@ -29,7 +29,6 @@ class LogInView(viewsets.GenericViewSet):
     serializer_class = LogInSerializer
     http_method_names = ["post"]
 
-    @method_decorator(csrf_exempt)
     def create(self, request):
         data = request.data
         serializer = self.serializer_class(data=data)
@@ -55,7 +54,6 @@ class TokenValidateView(viewsets.GenericViewSet):
     serializer_class = TokenSerializer
     http_method_names = ["post"]
 
-    @method_decorator(csrf_exempt)
     def create(self, request):
         data = request.data
         serializer = self.serializer_class(data=data)
