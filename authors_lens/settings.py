@@ -200,6 +200,8 @@ REST_FRAMEWORK = {
 
 
 # Djoser configuration
+DOMAIN = ('authorslens.netlify.app')
+SITE_NAME = ('AuthorsLens')
 DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
