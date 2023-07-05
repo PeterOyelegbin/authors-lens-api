@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import UserModel
-from .serializers import SignUpSerializer, LogInSerializer, TokenSerializer, PasswordReset, ConfirmPasswordReset
+from .serializers import LogInSerializer, TokenSerializer, PasswordReset, ConfirmPasswordReset
 
 
 # Create your views here.

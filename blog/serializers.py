@@ -1,10 +1,11 @@
 from rest_framework import serializers
-from accounts.serializers import SignUpSerializer
+from djoser.serializers import UserSerializer
 from .models import Blog
 
 
 class BlogSerializer(serializers.ModelSerializer):
-    author = SignUpSerializer()
+    author_id = serializers.CharField(write_only=True)
+    author = UserSerializer(read_only=True)
 
     class Meta:
         model = Blog

@@ -1,4 +1,5 @@
 from rest_framework import viewsets, permissions, throttling
+from rest_framework.parsers import MultiPartParser, FormParser
 from .models import Blog
 from .serializers import BlogSerializer
 
@@ -7,6 +8,7 @@ from .serializers import BlogSerializer
 class BlogView(viewsets.ModelViewSet):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    parser_classes = (MultiPartParser, FormParser)
     throttle_classes = [throttling.AnonRateThrottle, throttling.UserRateThrottle]
     ordering_fields = ["title", "created_on"]
     search_fields = ["author", "title"]
