@@ -10,7 +10,7 @@ class BlogView(viewsets.ModelViewSet):
     serializer_class = BlogSerializer
     parser_classes = (MultiPartParser, FormParser)
     throttle_classes = [throttling.AnonRateThrottle, throttling.UserRateThrottle]
-    ordering_fields = ["title", "created_on"]
+    ordering_fields = ["category", "created_on"]
     search_fields = ["author", "title"]
 
     # restrict access to create, edit, and delete blog post by authenticated users only
