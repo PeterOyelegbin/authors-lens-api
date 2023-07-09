@@ -11,7 +11,7 @@ class BlogView(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser, FormParser)
     throttle_classes = [throttling.AnonRateThrottle, throttling.UserRateThrottle]
     ordering_fields = ["category", "created_on"]
-    search_fields = ["author", "title"]
+    search_fields = ["title"]
 
     # restrict access to create, edit, and delete blog post by authenticated users only
     def get_permissions(self):
