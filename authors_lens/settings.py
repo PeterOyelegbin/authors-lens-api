@@ -31,9 +31,9 @@ ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
 
 # CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "https://authorslens.netlify.app", "https://*.vercel.app"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "https://authorslens.netlify.app"]
 
-CSRF_TRUSTED_ORIGINS = ["https://*.vercel.app"]
+CSRF_TRUSTED_ORIGINS = ["https://authorslens-api.vercel.app"]
 
 # Application definition
 
@@ -206,7 +206,7 @@ DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
     "SEND_CONFIRMATION_EMAIL": True,
-    "PASSWORD_RESET_CONFIRM_URL": "password-reset/{uid}/{token}",
+    "PASSWORD_RESET_CONFIRM_URL": "reset/confirm-password/{uid}/{token}",
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
     "PASSWORD_RESET_CONFIRM_RETYPE": True,
     "LOGOUT_ON_PASSWORD_CHANGE": True,
