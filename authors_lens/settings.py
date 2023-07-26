@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
 
 # CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "https://authorslens.netlify.app", "https://authorslens-api.vercel.app"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "https://authorslens.netlify.app", "https://authorslens.com.ng", "https://authorslens-api.vercel.app"]
 
 CSRF_TRUSTED_ORIGINS = ["https://authorslens-api.vercel.app"]
 
@@ -200,7 +200,7 @@ REST_FRAMEWORK = {
 
 
 # Djoser configuration
-DOMAIN = ('authorslens.netlify.app')
+DOMAIN = ('authorslens.com.ng')
 SITE_NAME = ('AuthorsLens')
 DJOSER = {
     "LOGIN_FIELD": "email",
