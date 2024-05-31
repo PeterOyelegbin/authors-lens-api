@@ -165,11 +165,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = config("EMAIL_HOST")
 EMAIL_PORT = 587 #465 if ssl is true
+DEFAULT_FROM_EMAIL = config("EMAIL_HOST_USER")
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_TIMEOUT = 120  # 120 sec
+EMAIL_TIMEOUT = 1200  # 1200 sec
 
 
 # Cloudinary configuration
