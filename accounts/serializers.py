@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 class LogInSerializer(serializers.Serializer):
     email = serializers.EmailField()
-    password = serializers.CharField(min_length=6, write_only=True)
+    password = serializers.CharField(write_only=True)
 
     class Meta:
         fields = ("email", "password")

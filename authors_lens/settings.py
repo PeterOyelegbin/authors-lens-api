@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import logging.config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "djoser",
+    "drf_yasg",
     "corsheaders",
     "ckeditor",
     "cloudinary",
@@ -164,13 +166,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Email configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = config("EMAIL_HOST")
-EMAIL_PORT = 587 #465 if ssl is true
+EMAIL_PORT = config("EMAIL_PORT")
 DEFAULT_FROM_EMAIL = config("EMAIL_HOST_USER")
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_TIMEOUT = 1200  # 1200 sec
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_TIMEOUT = 3600  # 3600 sec
 
 
 # Cloudinary configuration
@@ -214,3 +216,53 @@ DJOSER = {
     "TOKEN_EXPIRATION": 60,  # Set the token expiration time to 1 hour (3600 seconds)
     "SERIALIZERS": {},
 }
+
+
+# Error logger configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {asctime} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file_general': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'general.log',
+            'formatter': 'verbose',
+        },
+        'file_email': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'email_errors.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file_general'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'general_logger': {
+            'handlers': ['file_general'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'email_logger': {
+            'handlers': ['file_email'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
+}
+
+logging.config.dictConfig(LOGGING)
