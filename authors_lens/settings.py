@@ -233,32 +233,25 @@ LOGGING = {
         },
     },
     'handlers': {
-        'file_general': {
+        'console': {
             'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': 'general.log',
-            'formatter': 'verbose',
-        },
-        'file_email': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': 'email_errors.log',
+            'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['file_general'],
+            'handlers': ['console'],
             'level': 'ERROR',
             'propagate': True,
         },
         'general_logger': {
-            'handlers': ['file_general'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
         },
         'email_logger': {
-            'handlers': ['file_email'],
+            'handlers': ['console'],
             'level': 'ERROR',
             'propagate': False,
         },
