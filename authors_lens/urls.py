@@ -37,12 +37,8 @@ schema_view = get_schema_view(
 )
 
 router = DefaultRouter(trailing_slash=False)
-# router.register(r"accounts/signup", SignUpView, basename="signup")
 router.register(r"login", LogInView, basename="login")
 router.register(r"token/verify", TokenValidateView, basename="verify-otp")
-# router.register(r"accounts/current", CurrentUser, basename="current")
-router.register(r"users/reset_password", ResetPassword, basename="reset-password")
-router.register(r"users/reset_password_confirm", ConfirmResetPassword, basename="confirm-password")
 router.register(r"blogs", BlogView, basename="blogs")
 
 urlpatterns = [

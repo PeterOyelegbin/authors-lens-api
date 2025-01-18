@@ -201,4 +201,4 @@ class ConfirmResetPassword(viewsets.ViewSet):
                 'message': 'An error occurred, kindly contact support'
             }
             return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
+         

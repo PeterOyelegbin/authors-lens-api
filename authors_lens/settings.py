@@ -213,7 +213,7 @@ DJOSER = {
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
     "PASSWORD_RESET_CONFIRM_RETYPE": True,
     "LOGOUT_ON_PASSWORD_CHANGE": True,
-    "TOKEN_EXPIRATION": 60,  # Set the token expiration time to 1 hour (3600 seconds)
+    "TOKEN_EXPIRATION": 600,  # Set the token expiration time to 10 minute (600 seconds)
     "SERIALIZERS": {},
 }
 
