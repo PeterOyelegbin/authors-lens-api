@@ -2,14 +2,11 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
-from django.contrib.auth import authenticate, tokens
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
+from django.contrib.auth import authenticate
 from drf_yasg.utils import swagger_auto_schema
 from threading import Thread
 from utils import send_async_email, general_logger
-from .models import UserModel
-from .serializers import LogInSerializer, TokenSerializer, PasswordReset, ConfirmPasswordReset
+from .serializers import LogInSerializer, TokenSerializer
 
 
 # Create your views here.
@@ -103,102 +100,3 @@ class TokenValidateView(viewsets.ViewSet):
             }
             return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
-
-class ResetPassword(viewsets.ViewSet):
-    """
-    Password Reset Endpoint
-
-    User reset password.
-    """
-    serializer_class = PasswordReset
-    permission_classes = [AllowAny]
-
-    @method_decorator(csrf_exempt)
-    @swagger_auto_schema(request_body=PasswordReset, responses={200: 'OK', 404: 'NOT_FOUND', 500: 'SERVER ERROR'})
-    def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        try:
-            serializer.is_valid(raise_exception=True)
-            email = serializer.validated_data.get('email')
-            user = UserModel.objects.get(email=email)
-            token = tokens.PasswordResetTokenGenerator().make_token(user)
-            # send the token to the user email
-            email_subject = 'AuthorsLens: Password Reset'
-            email_body = f"""Dear {user},\n\nYou initiated a password reset process for your AuthorsLens account, please copy and paste this reset token: {token} in the link below:\n\nhttps://authorslens.netlify.app/password-reset/confirm\n\nPS: Please ignore if you did not initiate this process\n\nRegards,\nAuthorsLens"""
-            recipient = [user.email]
-            # Asynchronously handle send mail
-            Thread(target=send_async_email, args=(email_subject, email_body, recipient)).start()
-            response_data = {
-                'success': True,
-                'status': 200,
-                'message': 'Password reset token sent to your email'
-            }
-            return Response(response_data, status=status.HTTP_200_OK)
-        except UserModel.DoesNotExist:
-            response_data = {
-                'success': False,
-                'status': 404,
-                'message': 'User does not exist!'
-            }
-            return Response(response_data, status=status.HTTP_404_NOT_FOUND)
-        except Exception as e:
-            general_logger.error("An error occurred: %s", e)
-            response_data = {
-                'success': False,
-                'status': 500,
-                'message': 'An error occurred, kindly contact support'
-            }
-            return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-
-class ConfirmResetPassword(viewsets.ViewSet):
-    """
-    Confirm New Password Endpoint
-
-    User confirm new password.
-    """
-    serializer_class = ConfirmPasswordReset
-    permission_classes = [AllowAny]
-
-    @method_decorator(csrf_exempt)
-    @swagger_auto_schema(request_body=ConfirmPasswordReset, responses={200: 'OK', 400: 'BAD REQUEST', 404: 'NOT FOUND', 500: 'SERVER ERROR'})
-    def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        try:
-            serializer.is_valid(raise_exception=True)
-            email = serializer.validated_data.get('email')
-            token = serializer.validated_data.get('token')
-            password = serializer.validated_data.get('password')
-            user = UserModel.objects.get(email=email)
-            token_generator = tokens.PasswordResetTokenGenerator()
-            if not token_generator.check_token(user, token):
-                response_data = {
-                    'success': False,
-                    'status': 400,
-                    'message': 'The reset token is invalid!'
-                }
-                return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
-            user.set_password(password)
-            user.save()
-            response_data = {
-                'success': True,
-                'status': 200,
-                'message': 'Password reset sucessful'
-            }
-            return Response(response_data, status=status.HTTP_200_OK)
-        except UserModel.DoesNotExist:
-            response_data = {
-                'success': False,
-                'status': 404,
-                'message': 'User does not exist!'
-            }
-            return Response(response_data, status=status.HTTP_404_NOT_FOUND)
-        except Exception as e:
-            general_logger.error("An error occurred: %s", e)
-            response_data = {
-                'success': False,
-                'status': 500,
-                'message': 'An error occurred, kindly contact support'
-            }
-            return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-         
